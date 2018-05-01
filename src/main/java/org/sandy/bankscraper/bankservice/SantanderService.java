@@ -53,6 +53,10 @@ public class SantanderService implements BankScraper {
 			pinField.sendKeys(pass);
 			pinField.sendKeys(Keys.RETURN);
 
+			// Annoying ring fencing page
+			WebElement ringFencingContinueButton = ScraperReliabilityHelper.locateWebElement(webDriver, driver -> driver.findElement(By.cssSelector("input.primary")));
+			ringFencingContinueButton.click();
+			
 			// Bank account dashboard
 
 			ScraperReliabilityHelper.h1Checker(webDriver, "My accounts");

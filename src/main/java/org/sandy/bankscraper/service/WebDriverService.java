@@ -14,7 +14,7 @@ public class WebDriverService {
 	
 	private static AtomicInteger webDriversRunning = new AtomicInteger(0);
 	
-	public static final Integer MAX_WEB_DRIVERS = 2;
+	public static final Integer MAX_WEB_DRIVERS = 3;
 	
 	public synchronized static WebDriver getDriver() {
 
@@ -57,7 +57,7 @@ public class WebDriverService {
 	}
 
 	public static WebDriver startWebDriver() {
-		System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver_2.37.exe");
 		return new ChromeDriver();
 	}
 

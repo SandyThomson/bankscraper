@@ -64,12 +64,6 @@ public class AvivaService implements BankScraper {
 			}
 			accounts.add(b);
 
-			WebElement logoutLink = ScraperReliabilityHelper.locateWebElement(webDriver,
-					driver -> driver.findElement(By.linkText("Log out")));
-			logoutLink.click();
-
-			ScraperReliabilityHelper.titleChecker(webDriver, "You have logged out - MyAviva");
-
 			long timeInMillisEnd = Calendar.getInstance().getTimeInMillis();
 			scrapeTimeMillis = timeInMillisEnd - timeInMillisStart;
 
@@ -106,20 +100,16 @@ public class AvivaService implements BankScraper {
 		
 		detailsButton.click();
 
-		ScraperReliabilityHelper.titleChecker(webDriver, "Policy summary for Designer Pension @ Aviva - MyAviva");
-
 		a = new Account("Aviva");
 		a.setName(ScraperReliabilityHelper
-				.locateWebElement(webDriver, driver -> driver.findElement(By.cssSelector("h2.pageTitle"))).getText()
+				.locateWebElement(webDriver, driver -> driver.findElement(By.cssSelector("span.a-breadcrumb__current"))).getText()
 				.trim().replace("\n", " ").replace("\r", " "));
 		a.setBalance(ScraperReliabilityHelper
 				.locateWebElement(webDriver,
-						driver -> driver.findElement((By.cssSelector("table#featureTable tr.totalValue td"))))
+						driver -> driver.findElement((By.cssSelector("p.a-heading--1"))))
 				.getText().replaceAll("[^\\d.]", ""));
-
-		WebElement yourPoliciesButton = ScraperReliabilityHelper.locateWebElement(webDriver,
-				driver -> driver.findElement(By.linkText("Your policies")));
-		yourPoliciesButton.click();
+		
+		webDriver.get("https://www.direct.aviva.co.uk/MyPortfolio/");
 
 		ScraperReliabilityHelper.titleChecker(webDriver, "MyAviva");
 

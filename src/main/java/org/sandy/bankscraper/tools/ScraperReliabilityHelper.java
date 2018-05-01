@@ -14,6 +14,8 @@ public class ScraperReliabilityHelper {
 	public static int MAX_WAIT_TIME = 90;
 
 	public static void titleChecker(WebDriver driver, String expectedTitle) {
+		
+		System.out.println("[" + Thread.currentThread().getId() + "] Checking for title: " + expectedTitle);
 
 		for (int i = 0; i < MAX_WAIT_TIME; i++) {
 			if (driver.getTitle().equals(expectedTitle)) {
@@ -28,7 +30,7 @@ public class ScraperReliabilityHelper {
 		}
 		
 		if (!driver.getTitle().equals(expectedTitle)) {
-			System.out.println("Still incorrect after " + MAX_WAIT_TIME + " seconds ... reloading");
+			System.out.println("[" + Thread.currentThread().getId() + "] Still incorrect after " + MAX_WAIT_TIME + " seconds ... reloading");
 
 			driver.get(driver.getCurrentUrl());
 			for (int i = 0; i < MAX_WAIT_TIME; i++) {
@@ -36,7 +38,7 @@ public class ScraperReliabilityHelper {
 					break;
 				}
 				try {
-					System.out.println(i + ": Waiting for a second...");
+					System.out.println("[" + Thread.currentThread().getId() + "] " + i + ": Waiting for a second...");
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -49,6 +51,8 @@ public class ScraperReliabilityHelper {
 	}
 	
 	public static void h1Checker(WebDriver webdriver, String expectedText) {
+		
+		System.out.println("[" + Thread.currentThread().getId() + "] Checking for h1: " + expectedText);
 		
 		h1Checker(webdriver, expectedText, 1);
 		
@@ -67,7 +71,7 @@ public class ScraperReliabilityHelper {
 				return;
 			}
 			try {
-				System.out.println(i + ": Waiting for a second...");
+				System.out.println("[" + Thread.currentThread().getId() + "] " + i + ": Waiting for a second...");
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -84,7 +88,7 @@ public class ScraperReliabilityHelper {
 				return function.apply(driver);
 			} catch (NoSuchElementException e) {
 				try {
-					System.out.println(i + ": Waiting for a second...");
+					System.out.println("[" + Thread.currentThread().getId() + "] " + i + ": Waiting for a second...");
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
@@ -102,7 +106,7 @@ public class ScraperReliabilityHelper {
 				return function.apply(driver);
 			} catch (NoSuchElementException e) {
 				try {
-					System.out.println(i + ": Waiting for a second...");
+					System.out.println("[" + Thread.currentThread().getId() + "] " + i + ": Waiting for a second...");
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
